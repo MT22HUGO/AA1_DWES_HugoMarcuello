@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db_recetas
+    env_file:
+      - .env
+    ports:
+      - "${DB_PORT}:1433"
+    volumes:
+      - db_data:/var/opt/mssql
+    networks:
+      - red_recetas
+
+  api:
+    build: .
+    container_name: api_recetas
+    env_file:
+      - .env
+    ports:
+      - "${API_PORT}:8080"
+    depends_on:
+      - db
+    networks:
+      - red_recetas
+
+volumes:
+  db_data:
+
+networks:
+  red_recetas:
+    driver: bridge
