@@ -1,7 +1,6 @@
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: db_recetas
     env_file:
       - .env
     ports:
@@ -13,7 +12,6 @@ services:
 
   api:
     build: .
-    container_name: api_recetas
     env_file:
       - .env
     ports:
